@@ -1,0 +1,131 @@
+  // Definimos variables
+
+// SEMAFORO 1
+#define LED1_GREEN 13
+#define LED1_YELLOW 12
+#define LED1_RED 11
+
+// SEMAFORO 2
+#define LED2_GREEN 10
+#define LED2_YELLOW 9
+#define LED2_RED 8
+
+// SEMAFORO 3
+#define LED3_GREEN 7
+#define LED3_YELLOW 6
+#define LED3_RED 5
+
+// SEMAFORO 4
+#define LED4_GREEN 4
+#define LED4_YELLOW 3
+#define LED4_RED 2
+
+void setup() {
+  // Configuramos los pines como salida
+  pinMode(LED1_GREEN, OUTPUT);
+  pinMode(LED1_YELLOW, OUTPUT);
+  pinMode(LED1_RED, OUTPUT);
+
+  pinMode(LED2_GREEN, OUTPUT);
+  pinMode(LED2_YELLOW, OUTPUT);
+  pinMode(LED2_RED, OUTPUT);
+
+  pinMode(LED3_GREEN, OUTPUT);
+  pinMode(LED3_YELLOW, OUTPUT);
+  pinMode(LED3_RED, OUTPUT);
+
+  pinMode(LED4_GREEN, OUTPUT);
+  pinMode(LED4_YELLOW, OUTPUT);
+  pinMode(LED4_RED, OUTPUT);
+
+  // Iniciamos todos los semáforos en rojo
+  turnAllRed();
+}
+
+// Secuencia de un semáforo
+void loop() {
+  // Ciclo para semáforo 1
+  changeLights(LED1_GREEN, LED1_YELLOW, LED1_RED);
+  
+  // Ciclo para semáforo 2
+  changeLights(LED2_GREEN, LED2_YELLOW, LED2_RED);
+  
+  // Ciclo para semáforo 3
+  changeLights(LED3_GREEN, LED3_YELLOW, LED3_RED);
+  
+  // Ciclo para semáforo 4
+  changeLights(LED4_GREEN, LED4_YELLOW, LED4_RED);
+}
+
+// Función para poner todos los semáforos en rojo
+void turnAllRed() {
+  digitalWrite(LED1_GREEN, LOW);
+  digitalWrite(LED1_YELLOW, LOW);
+  digitalWrite(LED1_RED, HIGH);
+
+  digitalWrite(LED2_GREEN, LOW);
+  digitalWrite(LED2_YELLOW, LOW);
+  digitalWrite(LED2_RED, HIGH);
+
+  digitalWrite(LED3_GREEN, LOW);
+  digitalWrite(LED3_YELLOW, LOW);
+  digitalWrite(LED3_RED, HIGH);
+
+  digitalWrite(LED4_GREEN, LOW);
+  digitalWrite(LED4_YELLOW, LOW);
+  digitalWrite(LED4_RED, HIGH);
+}
+
+// Función para cambiar las luces de un semáforo 
+void changeLights(int greenLED, int yellowLED, int redLED) {
+  // Apagamos todas las luces del semáforo actual
+  digitalWrite(greenLED, LOW);
+  digitalWrite(yellowLED, LOW);
+  digitalWrite(redLED, LOW);
+
+  // Encendemos la luz roja del semáforo actual
+  digitalWrite(redLED, HIGH);
+  delay(500);  // 1 segundo de luz roja
+  
+  // Cambiamos a luz amarilla
+  digitalWrite(redLED, LOW);
+  digitalWrite(yellowLED, HIGH);
+  delay(700);  // 2 segundos de luz amarilla
+  
+  // Cambiamos a luz verde
+  digitalWrite(yellowLED, LOW);
+  digitalWrite(greenLED, HIGH);
+  turnOthersRed(greenLED);
+  delay(500);  // 5 segundos de luz verde
+
+    // Cambiamos a luz amarilla
+  digitalWrite(redLED, LOW);
+  digitalWrite(yellowLED, HIGH);
+  delay(700);  // 2 segundos de luz amarilla
+  
+}
+
+// Función para poner los otros semáforos en rojo
+void turnOthersRed(int activeGreenLED) {
+  if (activeGreenLED != LED1_GREEN) {
+    digitalWrite(LED1_GREEN, LOW);
+    digitalWrite(LED1_YELLOW, LOW);
+    digitalWrite(LED1_RED, HIGH);
+  }
+  if (activeGreenLED != LED2_GREEN) {
+    digitalWrite(LED2_GREEN, LOW);
+    digitalWrite(LED2_YELLOW, LOW);
+    digitalWrite(LED2_RED, HIGH);
+  }
+  if (activeGreenLED != LED3_GREEN) {
+    digitalWrite(LED3_GREEN, LOW);
+    digitalWrite(LED3_YELLOW, LOW);
+    digitalWrite(LED3_RED, HIGH);
+  }
+  if (activeGreenLED != LED4_GREEN) {
+    digitalWrite(LED4_GREEN, LOW);
+    digitalWrite(LED4_YELLOW, LOW);
+    digitalWrite(LED4_RED, HIGH);
+  }
+}
+}
